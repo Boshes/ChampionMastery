@@ -1,4 +1,4 @@
-var app = angular.module("LeagueTest",[]);
+var app = angular.module("LeagueTest",['ui.bootstrap']);
 
 app.config(function($httpProvider){
   $httpProvider.defaults.useXDomain = true;
