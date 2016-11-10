@@ -16,7 +16,7 @@
     <script src="Javascripts/APIService.js"></script>
     <script src="Javascripts/controller.js"></script>
   </head>
-  <body ng-controller="Ctrl">
+  <body ng-controller="Ctrl" class="wrapper">
     <div class="container">
       <h1 class="center-block">Champion Mastery</h1>
       <div ng-form="searchForm">
@@ -27,11 +27,15 @@
       </div>
     </div>
     <div class="container">
-      <div class="col-xs-2" ng-repeat="champion in championDetails track by $index">
-        <img ng-hide="championDetails.length<0" src="http://ddragon.leagueoflegends.com/cdn/6.20.1/img/champion/{{champion.key}}.png"
-        style="max-width:100px; max-height:100px; margin-top:5px; margin-bottom:5px"
-        uib-popover="{{champion.name}}"
-        popover-trigger="'mouseenter'">
+      <div ng-repeat="champion in championDetails track by $index">
+        <div class="col-xs-2">
+          <img ng-hide="championDetails.length<0"
+          ng-src="http://ddragon.leagueoflegends.com/cdn/6.20.1/img/champion/{{champion.key}}.png"
+          style="max-width:100px; max-height:100px; margin-top:5px; margin-bottom:5px"
+          uib-popover="{{champion.name}}"
+          ng-click="openModal(champion)"
+          popover-trigger="'mouseenter'">
+        </div>
       </div>
     </div>
   </body>

@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{champion.name}} Mastery Details</h3>
+</div>
+<div class="modal-footer" id="modal-body">
+  <div class="col-md-6">
+    <div class="row">
+      <h4 class="text-center">{{champion.name}} {{champion.title}}</h4>
+      <img ng-src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{champion.key}}_0.jpg"
+        class="center-block"
+        style="max-height:400px;"/>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <br />
+      <img ng-src="http://vignette2.wikia.nocookie.net/leagueoflegends/images/9/9b/Champ_Mastery_S3b.png/revision/latest?cb=20150312005414"
+        ng-show="{{champion.mastery}}==7"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette4.wikia.nocookie.net/leagueoflegends/images/e/e2/Champ_Mastery_S2b.png/revision/latest?cb=20150312005359"
+        ng-show="{{champion.mastery}}==6"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette2.wikia.nocookie.net/leagueoflegends/images/9/9b/Champ_Mastery_S1b.png/revision/latest?cb=20150312005414"
+        ng-show="{{champion.mastery}}==5"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette2.wikia.nocookie.net/leagueoflegends/images/0/0b/Champ_Mastery_Ab.png/revision/latest?cb=20150312005244"
+        ng-show="{{champion.mastery}}==4"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette2.wikia.nocookie.net/leagueoflegends/images/0/0b/Champ_Mastery_Bb.png/revision/latest?cb=20150312005244"
+        ng-show="{{champion.mastery}}==3"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette2.wikia.nocookie.net/leagueoflegends/images/0/0b/Champ_Mastery_Cb.png/revision/latest?cb=20150312005244"
+        ng-show="{{champion.mastery}}==2"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <img ng-src="http://vignette4.wikia.nocookie.net/leagueoflegends/images/3/3e/Champ_Mastery_Db.png/revision/latest?cb=20150312005229"
+        ng-show="{{champion.mastery}}==1"
+        class="center-block"
+        style="max-height:100px; max-width:100px;"/>
+      <h3 class="text-center" style="margin: auto 0;"> Mastery Level {{champion.mastery}}</h3>
+    </div>
+    <br />
+    <hr />
+    <div class="row">
+        <h4 class="text-center">Mastery Points</h4>
+        <h5 class="text-center">{{champion.points | number}}</h5>
+    </div>
+    <div class="row" ng-hide="{{champion.mastery}}==5 || {{champion.mastery}}==6 || {{champion.mastery}}==7">
+      <uib-progressbar class="progress-striped active"
+      type="success"
+      max="champion.maxLevelValue"
+      value="champion.points"><i>{{champion.points | number}} / {{champion.maxLevelValue | number}}</i></uib-progressbar>
+    </div>
+    <br />
+    <hr />
+    <div class="row">
+      <h4 class="text-center">Chest Earned</h4>
+      <h5 ng-show="{{champion.chests}}==true" class="text-center">Yes</h5>
+      <h5 ng-show="{{champion.chests}}==false" class="text-center">No</h5>
+    </div>
+    <br />
+    <hr />
+    <div class="row" ng-show="{{champion.mastery}}==5 || {{champion.mastery}}==6">
+      <h4 class="text-center">Tokens</h4>
+      <h5 class="text-center">{{champion.tokens}}</h5>
+    </div>
+  </div>
+</div>

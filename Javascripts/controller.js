@@ -1,4 +1,4 @@
-angular.module("LeagueTest").controller("Ctrl",['$scope','$location','APIService',function($scope,$location,APIService){
+angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal','APIService',function($scope,$location,$uibModal,APIService){
   require.config({
     paths : {
       text: 'dependencies/text',
@@ -6,7 +6,7 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','APIService
     }
   });
   var champions;
-  require(['json!dependencies/champions.json'],function(data){
+  require(['json!Dependencies/champions.json'],function(data){
       champions = data;
   });
 
@@ -28,15 +28,39 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','APIService
       for(var i=0;i<$scope.champions.length;i++){
         $scope.championDetails.push({
           name: champions.champions[$scope.champions[i].champion].name,
+          title: champions.champions[$scope.champions[i].champion].title,
           key: champions.champions[$scope.champions[i].champion].key,
           mastery: $scope.champions[i].mastery,
           points: $scope.champions[i].points,
           nextLevel: $scope.champions[i].nextLevel,
           chests: $scope.champions[i].chests,
-          tokens:$scope.champions[i].tokens
+          tokens:$scope.champions[i].tokens,
+          maxLevelValue: $scope.champions[i].points + $scope.champions[i].nextLevel
         });
       }
       console.log($scope.championDetails);
     })
-  }
+  };
+
+  $scope.openModal = function(champion){
+    console.log(champion);
+    var modalInstance = $uibModal.open({
+      templateUrl : 'styles/modal.html',
+      controller : 'ChampionModal',
+      size : 'md',
+      ariaLabelledBy: 'modal-title',
+      ariaDescribedBy: 'modal-body',
+      animation : true,
+      resolve : {
+        champion : function(){
+          return champion;
+        }
+      }
+    });
+  };
+
 }]);
+
+angular.module('LeagueTest').controller('ChampionModal',function($scope,$uibModalInstance,champion){
+  $scope.champion = champion;
+});
