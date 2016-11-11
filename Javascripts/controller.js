@@ -130,8 +130,10 @@ angular.module("ChampionMastery").controller("Ctrl",['$scope','$location','$uibM
           coordinates: $scope.pos
         }
       ];
-       console.log($scope.stats);
-             // fs.writeFile('./searchLog.json', JSON.stringify(obj), 'utf-8');
+      console.log($scope.stats);
+    })
+    .catch(function(){
+      $scope.error = "No Champions with Mastery Levels Found with this Summoner Name.";
     });
   };
 

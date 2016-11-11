@@ -34,22 +34,25 @@
           </select>
         </div>
         <br />
-        <button type="submit" class="btn btn-success btn-lg center-block" ng-click="getSummoner(name,region)">Search</button>
+        <div uib-alert type="danger"
+          class="center-block text-center"
+          ng-class="'alert-danger'"
+          ng-show="name=='' || region==''">No Information Entered</div>
+        <button type="submit" class="btn btn-success btn-lg center-block" ng-click="getSummoner(name,region)" ng-disabled="name=='' || region==''">Search</button>
       </div>
-      <!-- <uib-alert type="danger" ng-show="name=='' || region==''">No Information Entered</uib-alert> -->
     </div>
     <div class="container">
       <div ng-repeat="champion in championDetails track by $index">
-        <!-- <div ng-show="championDetails.length<0"><i><em>No Champions with Mastery Levels Found.</em></i> -->
         <div class="col-xs-2">
-          <img ng-hide="championDetails.length<0"
-          ng-src="http://ddragon.leagueoflegends.com/cdn/6.20.1/img/champion/{{champion.key}}.png"
+          <img ng-src="http://ddragon.leagueoflegends.com/cdn/6.20.1/img/champion/{{champion.key}}.png"
           style="max-width:100px; max-height:100px; margin-top:5px; margin-bottom:5px"
           uib-popover="{{champion.name}}"
           ng-click="openModal(champion)"
           popover-trigger="'mouseenter'">
         </div>
       </div>
+      <br />
+      <div ng-show="!championDetails.length" style="display:none;" class="text-center"><i><em ng-bind="error"></em></i>
     </div>
   </body>
 </html>
