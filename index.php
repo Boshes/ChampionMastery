@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="LeagueTest">
+<html lang="en" ng-app="ChampionMastery">
   <head>
-    <title>League Test</title>
+    <title>Champion Mastery</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +11,7 @@
     <script src="Dependencies/angular.min.js"></script>
     <script src="Dependencies/bootstrap.min.js"></script>
     <script src="Dependencies/ui-bootstrap-tpls-2.1.4.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDLLNO7s01c0OQWmEEZ_SotiQCFpAhwnyg&sensor=false&extension=.js&output=embed"></script>
     <script src="Dependencies/require.js"></script>
     <script src="Javascripts/main.js"></script>
     <script src="Javascripts/championheader.js"></script>
@@ -20,13 +21,14 @@
   <body ng-controller="Ctrl" class="wrapper">
     <championheader></championheader>
     <div class="container">
-      <div ng-form="searchForm">
+      <div ng-form="searchForm" ng-class="{'has-error':(searchForm.name.$invalid && searchForm.name.$dirty) || (searchForm.region.$invalid && searchForm.region.$dirty)}">
         <div class="input-group">
           <span class="input-group-addon">Summoner Name</span>
           <input type="text" class="form-control" name="name" ng-model="name" />
           <span class="input-group-addon">Region</span>
           <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
           <select class="form-control"
+            name="region"
             ng-options="region.key as region.region for region in regions.regions"
             ng-model="regions.region">
           </select>
@@ -34,9 +36,11 @@
         <br />
         <button type="submit" class="btn btn-success btn-lg center-block" ng-click="getSummoner(name,region)">Search</button>
       </div>
+      <!-- <uib-alert type="danger" ng-show="name=='' || region==''">No Information Entered</uib-alert> -->
     </div>
     <div class="container">
       <div ng-repeat="champion in championDetails track by $index">
+        <!-- <div ng-show="championDetails.length<0"><i><em>No Champions with Mastery Levels Found.</em></i> -->
         <div class="col-xs-2">
           <img ng-hide="championDetails.length<0"
           ng-src="http://ddragon.leagueoflegends.com/cdn/6.20.1/img/champion/{{champion.key}}.png"

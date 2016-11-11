@@ -1,4 +1,4 @@
-angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal','APIService',function($scope,$location,$uibModal,APIService){
+angular.module("ChampionMastery").controller("Ctrl",['$scope','$location','$uibModal','APIService',function($scope,$location,$uibModal,APIService){
   require.config({
     paths : {
       text: 'dependencies/text',
@@ -7,9 +7,19 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
   });
 
   var champions;
+
   require(['json!Dependencies/champions.json'],function(data){
       champions = data;
   });
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      $scope.pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+    })
+  };
 
   $scope.regions = {
     region: 'region',
@@ -73,6 +83,9 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
   };
 
   $scope.getSummoner = function(){
+    if($scope.name=='' || $scope.name==null || $scope.regions.region==null || $scope.regions.region==undefined){
+      return;
+    }
     for(var i=0; i<$scope.regions.regions.length;i++){
       if($scope.regions.regions[i].key==$scope.regions.region){
         var platform = $scope.regions.regions[i].platform;
@@ -113,17 +126,16 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
         {
           summonerSearched:$scope.name,
           time: new Date().toUTCString(),
-          region: $scope.regions.region
+          region: $scope.regions.region,
+          coordinates: $scope.pos
         }
       ];
-      console.log($scope.stats);
-
-      // fs.writeFile('./searchLog.json', JSON.stringify(obj), 'utf-8');
+       console.log($scope.stats);
+             // fs.writeFile('./searchLog.json', JSON.stringify(obj), 'utf-8');
     });
   };
 
   $scope.openModal = function(champion){
-    console.log(champion);
     var modalInstance = $uibModal.open({
       templateUrl : 'styles/modal.html',
       controller : 'ChampionModal',
@@ -141,6 +153,6 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
 
 }]);
 
-angular.module('LeagueTest').controller('ChampionModal',function($scope,$uibModalInstance,champion){
+angular.module('ChampionMastery').controller('ChampionModal',function($scope,$uibModalInstance,champion){
   $scope.champion = champion;
 });

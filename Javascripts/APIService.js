@@ -1,4 +1,4 @@
-angular.module("LeagueTest").factory("APIService",['$http','$q',function($http,$q){
+angular.module("ChampionMastery").factory("APIService",['$http','$q',function($http,$q){
   return{
     getSummonerChampionMastery : function(summoner){
       var deferred = $q.defer();

@@ -1,4 +1,4 @@
-angular.module('LeagueTest').directive('championheader',function(){
+angular.module('ChampionMastery').directive('championheader',function(){
   return{
     restrict: 'E',
     controller: 'Ctrl',
