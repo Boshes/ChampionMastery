@@ -13,17 +13,26 @@
     <script src="Dependencies/ui-bootstrap-tpls-2.1.4.min.js"></script>
     <script src="Dependencies/require.js"></script>
     <script src="Javascripts/main.js"></script>
+    <script src="Javascripts/championheader.js"></script>
     <script src="Javascripts/APIService.js"></script>
     <script src="Javascripts/controller.js"></script>
   </head>
   <body ng-controller="Ctrl" class="wrapper">
+    <championheader></championheader>
     <div class="container">
-      <h1 class="center-block">Champion Mastery</h1>
       <div ng-form="searchForm">
-        <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">Summoner Name</span>
           <input type="text" class="form-control" name="name" ng-model="name" />
+          <span class="input-group-addon">Region</span>
+          <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
+          <select class="form-control"
+            ng-options="region.key as region.region for region in regions.regions"
+            ng-model="regions.region">
+          </select>
         </div>
-        <button type="submit" class="btn btn-success btn-lg center-block" ng-click="getSummoner()">Search</button>
+        <br />
+        <button type="submit" class="btn btn-success btn-lg center-block" ng-click="getSummoner(name,region)">Search</button>
       </div>
     </div>
     <div class="container">

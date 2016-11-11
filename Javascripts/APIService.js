@@ -1,8 +1,8 @@
 angular.module("LeagueTest").factory("APIService",['$http','$q',function($http,$q){
   return{
-    getSummonerChampionMastery : function(name){
+    getSummonerChampionMastery : function(summoner){
       var deferred = $q.defer();
-      $http.get('http://localhost/riotapi/config.php?summoner='+name)
+      $http.get('http://localhost/riotapi/templates/config.php?summoner='+summoner)
       .success(function(data){
         deferred.resolve(data);
       })

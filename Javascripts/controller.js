@@ -5,13 +5,83 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
       json: 'dependencies/json'
     }
   });
+
   var champions;
   require(['json!Dependencies/champions.json'],function(data){
       champions = data;
   });
 
+  $scope.regions = {
+    region: 'region',
+    regions: [
+      {
+        region: 'North America',
+        key:'na',
+        platform:"na1"
+      },
+      {
+        region:'Europe West',
+        key:'euw',
+        platform:"euw1"
+      },
+      {
+        region:'Europe North East',
+        key:'eune',
+        platform:'eun1'
+      },
+      {
+        region:'Brazil',
+        key:'br',
+        platform:'br1'
+      },
+      {
+        region:'Japan',
+        key:'jp',
+        platform:'jp1'
+      },
+      {
+        region:'Korea',
+        key:'kr',
+        platform:'kr'
+      },
+      {
+        region:'Latin America North',
+        key:'lan',
+        platform:'la1'
+      },
+      {
+        region:'Latin America South',
+        key:'las',
+        platform:'la2'
+      },
+      {
+        region:'Oceania',
+        key:'oce',
+        platform:'oc1'
+      },
+      {
+        region:'Turkey',
+        key:'tr',
+        platform:'tr1'
+      },
+      {
+        region:'Russia',
+        key:'ru',
+        platform:'ru'
+      }
+    ]
+  };
+
   $scope.getSummoner = function(){
-    APIService.getSummonerChampionMastery($scope.name)
+    for(var i=0; i<$scope.regions.regions.length;i++){
+      if($scope.regions.regions[i].key==$scope.regions.region){
+        var platform = $scope.regions.regions[i].platform;
+      }
+    };
+
+    var summonerInformation = $scope.name + '_' + $scope.regions.region + '_' + platform;
+
+    APIService.getSummonerChampionMastery(summonerInformation)
     .then(function(data){
       $scope.champions =[];
       $scope.championDetails = [];
@@ -38,8 +108,18 @@ angular.module("LeagueTest").controller("Ctrl",['$scope','$location','$uibModal'
           maxLevelValue: $scope.champions[i].points + $scope.champions[i].nextLevel
         });
       }
-      console.log($scope.championDetails);
-    })
+
+      $scope.stats = [
+        {
+          summonerSearched:$scope.name,
+          time: new Date().toUTCString(),
+          region: $scope.regions.region
+        }
+      ];
+      console.log($scope.stats);
+
+      // fs.writeFile('./searchLog.json', JSON.stringify(obj), 'utf-8');
+    });
   };
 
   $scope.openModal = function(champion){
