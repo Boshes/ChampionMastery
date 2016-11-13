@@ -2,7 +2,7 @@ angular.module("ChampionMastery").factory("APIService",['$http','$q',function($h
   return{
     getSummonerChampionMastery : function(summoner){
       var deferred = $q.defer();
-      $http.get('http://localhost/riotapi/templates/config.php?summoner='+summoner)
+      $http.get('http://localhost/championmastery/templates/config.php?summoner='+summoner)
       .success(function(data){
         deferred.resolve(data);
       })
