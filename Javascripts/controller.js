@@ -139,7 +139,7 @@ angular.module("ChampionMastery").controller("Ctrl",['$scope','$location','$uibM
 
   $scope.openModal = function(champion){
     var modalInstance = $uibModal.open({
-      templateUrl : 'styles/modal.html',
+      templateUrl : 'templates/modal.html',
       controller : 'ChampionModal',
       size : 'md',
       ariaLabelledBy: 'modal-title',
