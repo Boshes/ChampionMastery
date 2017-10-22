@@ -52,7 +52,7 @@
         </div>
       </div>
       <br />
-      <div ng-show="!championDetails.length" style="display:none;" class="text-center"><i><em ng-bind="error"></em></i>
+      <div ng-show="!championDetails.length" class="text-center"><i><em ng-bind="error"></em></i>
     </div>
   </body>
 </html>

@@ -96,30 +96,36 @@ angular.module("ChampionMastery").controller("Ctrl",['$scope','$location','$uibM
 
     APIService.getSummonerChampionMastery(summonerInformation)
     .then(function(data){
-      $scope.champions =[];
+      $scope.error = null;
+      $scope.champions = [];
       $scope.championDetails = [];
-      for(var i=0;i<data.length;i++){
-        $scope.champions.push({
-          champion: data[i].championId,
-          mastery: data[i].championLevel,
-          points: data[i].championPoints,
-          nextLevel: data[i].championPointsUntilNextLevel,
-          chests: data[i].chestGranted,
-          tokens: data[i].tokensEarned
-        });
+      if(data.length>0){
+        for(var i=0;i<data.length;i++){
+          $scope.champions.push({
+            champion: data[i].championId,
+            mastery: data[i].championLevel,
+            points: data[i].championPoints,
+            nextLevel: data[i].championPointsUntilNextLevel,
+            chests: data[i].chestGranted,
+            tokens: data[i].tokensEarned
+          });
+        }
+        for(var i=0;i<$scope.champions.length;i++){
+          $scope.championDetails.push({
+            name: champions.champions[$scope.champions[i].champion].name,
+            title: champions.champions[$scope.champions[i].champion].title,
+            key: champions.champions[$scope.champions[i].champion].key,
+            mastery: $scope.champions[i].mastery,
+            points: $scope.champions[i].points,
+            nextLevel: $scope.champions[i].nextLevel,
+            chests: $scope.champions[i].chests,
+            tokens:$scope.champions[i].tokens,
+            maxLevelValue: $scope.champions[i].points + $scope.champions[i].nextLevel
+          });
+        }
       }
-      for(var i=0;i<$scope.champions.length;i++){
-        $scope.championDetails.push({
-          name: champions.champions[$scope.champions[i].champion].name,
-          title: champions.champions[$scope.champions[i].champion].title,
-          key: champions.champions[$scope.champions[i].champion].key,
-          mastery: $scope.champions[i].mastery,
-          points: $scope.champions[i].points,
-          nextLevel: $scope.champions[i].nextLevel,
-          chests: $scope.champions[i].chests,
-          tokens:$scope.champions[i].tokens,
-          maxLevelValue: $scope.champions[i].points + $scope.champions[i].nextLevel
-        });
+      else{
+        $scope.error = "No Champions with Mastery Levels Found with this Summoner Name.";
       }
 
       $scope.stats = [

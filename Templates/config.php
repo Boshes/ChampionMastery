@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT");
 header("Content-Type: application/json; charset=UTF-8");
 header("Connection: keep-alive");
-$apikey = 'RGAPI-ff5fb4df-f6ed-4e04-8da4-3a2c4e565cd2';
+$apikey = 'RGAPI-cf53ee7a-f4a1-4a46-98e5-88ace523aa9c';
 $summoner = $_REQUEST["summoner"];
 $summonerDetails = explode("_",$summoner);
 if($summoner!=''){
@@ -17,7 +17,7 @@ if($summoner!=''){
   $summonerName = str_replace(' ','',strtolower($summonerDetails[0]));
   $information = json_decode($data,true);
   $summonerId = $information['id'];
-  $url = 'https://'.$summonerDetails[2].'.api.riotgames.com/championmastery/location/'.$summonerDetails[2].'/player/'.$summonerId.'/champions?api_key='.$apikey;
+  $url = 'https://'.$summonerDetails[2].'.api.riotgames.com/lol/champion-mastery/v3/champion-masteries/by-summoner/'.$summonerId.'?api_key='.$apikey;
   $ch = curl_init($url);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
